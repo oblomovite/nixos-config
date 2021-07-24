@@ -1,0 +1,40 @@
+[advice]
+   statusHints = false
+
+[color]
+   branch = auto
+   diff = auto
+   interactive = auto
+   status = auto
+   ui = auto
+
+[diff]
+  algorithm = patience
+
+[core]
+   attributesfile = @gitattributes@
+   excludesfile = @gitignore@
+   whitespace = -blank-at-eof, tab-in-indent
+
+[help]
+   autocorrect = 1
+
+[user]
+   email = robert.sheynin@gmail.com
+   name = Robert Sheynin
+   # signingkey = 6F2AB2BE886D181A
+
+[transfer]
+   fsckObjects = true
+
+[fetch]
+   fsckObjects = true
+
+[receive]
+   fsckObjects = true
+
+[gpg]
+   program = @gnupg@/bin/gpg
+
+# [commit]
+   # gpgsign = true

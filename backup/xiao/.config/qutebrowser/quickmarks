@@ -1,0 +1,39 @@
+confiiguration.nix https://gist.github.com/DamienCassou/e1e6b3746789276b7b25
+imagemagick - emacs thread https://discourse.nixos.org/t/nixos-stable-emacs-imagemagick-support/1338/3
+example matplotlib grapgs https://pythonspot.com/matplotlib-bar-chart/
+noahfrederick dots https://github.com/noahfrederick/dots
+Nixos Articles https://github.com/samdroid-apps/nix-articles
+emacs config reference https://matthewbauer.us/bauer/
+bitbucket - dotfiles https://bitbucket.org/0sm1n0g/dot-files/src/master/
+bauer - emacs https://matthewbauer.us/bauer/
+yasnippet - wikiemacs https://www.emacswiki.org/emacs/Yasnippet
+yasnippet github https://github.com/joaotavora/yasnippet/tree/master/doc
+rum tutorial https://slonoed.net/redux-in-closurescript-with-rum/
+cider github https://github.com/clojure-emacs/cider/blob/master/cider.el
+cider docs https://cider.readthedocs.io/en/stable/clojurescript/
+figwheel docs https://github.com/bhauman/lein-figwheel/wiki/Using-the-Figwheel-REPL-within-NRepl
+i3status-rust config https://github.com/JP-Ellis/dotfiles/blob/master/config/i3/status.toml
+rofi arch docs https://wiki.archlinux.org/index.php/Rofi
+meghanada github https://github.com/mopemope/meghanada-emacs
+nix overrides https://nixos.wiki/wiki/Nixpkgs/Update_a_package
+nixpkgs manual https://nixos.org/nixpkgs/manual/
+.config/nixpkgs/config.nix example https://github.com/gridaphobe/dotfiles/blob/master/nixpkgs/config.nix
+./config/nixpkgs/config.nix example2 https://github.com/kamilchm/.nixpkgs/blob/master/config.nix
+return to me https://github.com/bjornfor/nixos-config/blob/master/cfg/base-small.nix
+i3 example config https://gist.github.com/fzerorubigd/6130994
+nix-config/bjornfor https://github.com/bjornfor/nixos-config
+nixfmy https://libraries.io/hackage/nixfmt
+nixfmt https://libraries.io/hackage/nixfmt
+Great Courses Plus https://www.thegreatcoursesplus.com/categories
+emacs python config https://steelkiwi.com/blog/emacs-configuration-working-python/
+clojurescript screencast https://www.youtube.com/watch?v=wq6ctyZBb0A
+qutebrowser - github https://github.com/qutebrowser/qutebrowser/blob/master/doc/help/configuring.asciidoc#configpy
+qutebrowser - settings https://github.com/qutebrowser/qutebrowser/blob/master/doc/help/settings.asciidoc#content.geolocation
+zenburn colors http://danson.grafidog.com/2010/10/zenburn-color-chart.html
+udemy https://www.udemy.com/
+emacs latex setup https://piotr.is/2010/emacs-as-the-ultimate-latex-editor/
+robert.sheynin@gmail.com https://mail.google.com/mail/u/1/#inbox
+zir.zpmz@gmail.com https://mail.google.com/mail/u/0/?pli=1#inbox
+emacs config latex https://github.com/jabranham/emacs/blob/master/init.el
+Packt - GAN Cookbook repo https://github.com/PacktPublishing/Generative-Adversarial-Networks-Cookbook
+latex src blocks in org mode https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-LaTeX.html

@@ -1,0 +1,70 @@
+# Wrapped tmux with custom tmux.conf (no global state).
+
+{ pkgs }:
+
+let
+  plugins = with pkgs.tmuxPlugins; [
+    # prefix + Ctrl-s - save
+    # prefix + Ctrl-r - restore
+    resurrect
+
+    # Uses tmux-resurrect to automatically save and restore of environment
+    # (windows and panes). Depends on resurrect, so must be after it (if plugin
+    # load order matters).
+    continuum
+
+    # prefix + C -\u200aCreate a session by prompting for its name
+    # prefix + X - Deletes the current session
+    # prefix + g -\u200aLists all the sessions (alternative to prefix + s)
+    sessionist
+  ];
+
+  fullTmuxConf = pkgs.runCommand "tmux.conf"
+    { # Variables to be substituted in tmux.conf
+      pythonPackages_powerline = pkgs.python3Packages.powerline;
+    }
+    ''
+      cp ${./tmux.conf} "$out"
+      substituteAllInPlace "$out"
+
+      # Assert that there are no remaining @metaVars@.
+      if grep -rn "@[a-z][a-zA-Z0-9_-]*@" "$out"; then
+          echo "error: found one or more unpatched @metaVars@"
+          exit 1
+      fi
+
+      # Configure plugins
+      echo "" >> "$out"
+      # tmux-continuum config
+      # Last saved environment is automatically restored when tmux is started.
+      echo "set-option -g @continuum-restore 'on'" >> "$out"
+
+      # Install plugins
+      echo "" >> "$out"
+      echo "# Plugins" >> "$out"
+      echo '${pkgs.lib.concatMapStrings (x: "run-shell ${x.rtp}\n") plugins}' >> "$out"
+    '';
+
+  tmuxWithConf = pkgs.writeScriptBin "tmux" ''
+    #!${pkgs.bash}/bin/bash
+    export PATH="''${PATH}''${PATH:+:}${with pkgs; lib.makeBinPath [ python3Packages.powerline xclip ]}"
+    exec "${pkgs.tmux}/bin/tmux" -f "${fullTmuxConf}" "$@"
+  '';
+
+  tmuxSourceConf = pkgs.writeScriptBin "tmux-source-conf" ''
+    #!${pkgs.bash}/bin/bash
+    # Helper script to source the new tmux.conf without global state (only
+    # $PATH lookup).
+    "${pkgs.tmux}/bin/tmux" source-file "${fullTmuxConf}"
+    "${pkgs.tmux}/bin/tmux" display-message "Sourced ${fullTmuxConf}"
+  '';
+in
+pkgs.symlinkJoin {
+  name = "${pkgs.tmux.name}-with-config";
+  paths = [ pkgs.tmux.all ];
+  postBuild = ''
+    rm "$out/bin/tmux"
+    cp "${tmuxWithConf}/bin/tmux" "$out/bin"
+    cp "${tmuxSourceConf}/bin/tmux-source-conf" "$out/bin/tmux-source-conf"
+  '';
+}

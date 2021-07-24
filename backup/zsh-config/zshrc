@@ -1,0 +1,2 @@
+export PATH="$PATH:@direnv@/bin/"
+eval "$(direnv hook zsh)"

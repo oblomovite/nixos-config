@@ -1,0 +1,81 @@
+# Refer to documentation to set up support for
+# nvidia cards, docker images, toggles
+
+[theme]
+name = "bad-wolf"
+
+[icons]
+name = "awesome"
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %m/%d %R"
+
+[[block]]
+block = "net"
+device = "wlp1s0"
+interval = 3
+ip = false
+ssid = false
+speed_up = false
+speed_down = false
+
+[[block]]
+block = "cpu"
+interval = 1
+
+[[block]]
+block = "load"
+interval = 1
+format = "{1m}"
+
+[[block]]
+block = "disk_space"
+path = "/"
+# alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+
+[[block]]
+driver = "pulseaudio"
+block = "sound"
+step_width = 10
+# on_click	Shell command to run when the sound block is clicked.	No	None
+
+[[block]]
+block = "battery"
+interval = 60
+format = "{percentage}% {time}"
+device = "BAT1"
+
+# [[block]]
+# block = "maildir"
+# interval = 60
+# inboxes = ["/home/user/mail/local", "/home/user/mail/gmail/Inbox"]
+# threshold_warning = 1
+# threshold_critical = 10
+# display_type = "new"
+
+
+# Options
+# Key	Values	Required	Default
+# gpu_id	GPU id in system	No	0
+# label	Display custom gpu label	No	""
+# interval	Update interval, in seconds.	No	1
+# show_utilization	Display gpu utilization. In percents.	No	true
+# show_memory	Display memory information.	No	true
+# show_temperature	Display gpu temperature.	No	true
+# show_fan_speed	Display fan speed.	No	false
+# show_clocks	Display gpu clocks.	No	false
+
+[[block]]
+block = "nvidia_gpu"
+label = "RTX 2070"
+show_memory = false
+show_clocks = true
+interval = 1
+

@@ -1,0 +1,58 @@
+[theme]
+name = "bad-wolf"
+
+[icons]
+name = "awesome"
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %m/%d %R"
+
+[[block]]
+block = "net"
+device = "wlp2s0"
+interval = 3
+ip = false
+ssid = false
+speed_up = false
+speed_down = true
+
+[[block]]
+block = "cpu"
+interval = 1
+
+[[block]]
+block = "load"
+interval = 1
+format = "{1m}"
+
+[[block]]
+block = "disk_space"
+path = "/"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+
+[[block]]
+driver = "pulseaudio"
+block = "sound"
+step_width = 10
+# on_click	Shell command to run when the sound block is clicked.	No	None
+
+[[block]]
+block = "battery"
+interval = 3
+format = "{percentage}% {time}"
+device = "BAT0"
+
+# [[block]]
+# block = "maildir"
+# interval = 60
+# inboxes = ["/home/user/mail/local", "/home/user/mail/gmail/Inbox"]
+# threshold_warning = 1
+# threshold_critical = 10
+# display_type = "new"
+

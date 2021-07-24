@@ -1,0 +1,405 @@
+{ config, pkgs, lib, ... }:
+
+{
+
+  nixpkgs = {
+    system = "x86_64-linux";
+    config = {
+      allowUnfree = true;
+    };
+
+    overlays = [
+      (import ./overlay.nix
+        {
+          # inherit secrets;
+        }
+      )
+    ];
+  };
+
+  # nix options for derivations to persist garbage collection
+  nix.extraOptions = ''
+    keep-outputs = true
+    keep-derivations = true
+  '';
+
+  # environment.pathsToLink = [
+  #   "/share/nix-direnv"
+  # ];
+
+  environment = {
+    systemPackages = (with pkgs;
+      let
+        # pypi2nix = import (pkgs.fetchgit {
+        #   url = "https://github.com/nix-community/pypi2nix";
+        #   # adjust rev and sha256 to desired version
+        #   rev = "v2.0.1";
+        #   sha256 = "sha256:0mxh3x8bck3axdfi9vh9mz1m3zvmzqkcgy6gxp8f9hhs6qg5146y";
+        # }) {};
+
+
+        # pypi2nix = import (pkgs.fetchgit {
+        #   url = "https://github.com/nix-community/pypi2nix";
+        #   # adjust rev and sha256 to desired version
+        #   rev = "v2.0.1";
+        #   sha256 = "sha256:0mxh3x8bck3axdfi9vh9mz1m3zvmzqkcgy6gxp8f9hhs6qg5146y";
+        # }) {};
+
+
+        pythonWithPackages = python3WithPackages:
+          with python3Packages;
+
+          [
+            # Jupyter
+            jupyter_core
+            jupyter_console
+            jupyter_client
+            notebook
+
+            # pip
+
+          ];
+
+        # nodeWithPackages = nodejs.withPackages nodejsWithPackages;
+        python3WithPackages = python3.withPackages pythonWithPackages;
+
+      in
+
+        [
+
+          pypi2nix # Convert requirements to nix expression
+
+          mplayer
+          ## System Monitoring
+          vnstat # Network
+          htop # General
+          powertop # Power # powertop --html=<destination>
+          # gotop
+          #nvtop # Nvidia
+          #libnotify # Not sure I need this
+          ## Not sure which I need of the two
+
+          # Learn about disk usage of directories
+          dua
+          # Learn about disk usage of directories
+          duc
+          ## Not sure which I need of the two
+
+          # Tools for network auditing
+          # dsniff
+
+          # Clipboard Manager
+          # parcellite
+          # clipster
+
+          ### system profiler ###
+          oprofile
+          pprof
+          valgrind # Debugging and profiling tool suite
+          # heaptrack # Heap memory profiler for Linux
+          ### system profiler ###
+
+          ## System Monitoring
+
+          # Modeling + Drawing
+          blender
+          openscad
+          #########
+          # kicad #
+          #########
+          openscad
+          krita
+          gimp
+          unity3d
+          godot
+          # Modeling + Drawing
+
+          # For sending magic packets
+          wol
+
+          # Chess
+          chessx
+          # crafty
+          gnuchess
+          xboard
+          stockfish
+          scid
+          scid-vs-pc
+          # arena
+          eboard
+          chessdb
+
+          # Accounting Tool
+          ledger
+          ledger-autosync
+
+          # Mail Sever
+          mu
+
+          ## Languages
+          # Lisps
+          clisp
+          sbcl
+          hy
+
+          # Rust
+          rustup
+          cargo
+          rustc
+
+          # Nix Tooling
+          # nixfmt
+          nixpkgs-lint
+          nix-prefetch-scripts
+          cachix
+          nix-index
+          nox
+          patchelf
+
+          # Haskell
+          cabal-install
+          ghc
+
+          # Julia
+          # julia
+
+          # R
+          R
+          # rPackages.ggplot2
+          # rPackages.dplyr
+          # rPackages.xts
+
+          # Elm
+          elmPackages.elm
+
+          # Dictionaries
+          hunspell
+          hunspellDicts.en-us
+          hunspellDicts.de-de
+          hunspellDicts.fr-moderne
+          aspell
+          aspellDicts.fr
+          aspellDicts.en
+          aspellDicts.de
+          aspellDicts.ru
+
+          # Ruby
+          ruby
+          bundler
+
+          # C/C++
+          ccls
+          coan
+          gcc
+          clang
+          boost
+          gdb
+          omnisharp-roslyn
+
+          # Clojure
+          clojure
+          joker
+          leiningen
+          rlwrap
+
+          # Javascript
+          nodejs
+          yarn
+          # nodePackages.typescript
+          # nodePackages.prettier
+          # nodePackages.eslint
+          # nodePackages.yarn
+          # nodePackages.react-tools
+          v8
+
+          # Browser
+          chromium
+          qutebrowser
+
+          #Lua
+          lua
+
+          # Java
+          #          jdk14
+          #          gradle
+          #          gradle-completion
+          #          maven
+
+          # Python
+          python3WithPackages
+          # python3Full
+          pypi2nix
+          # libtensorflow
+
+          # Latex
+          texlive.combined.scheme-full
+          auctex
+          tikzit
+          graphviz
+          gnuplot
+
+          ## General Programming Packages
+          universal-ctags
+          git
+          git-lfs # git extension for verioning large files
+
+          # Emacs Packages
+          custom-emacs
+          emacs-all-the-icons-fonts
+          imagemagickBig
+          pinentry_emacs
+
+
+          # Vim + Tmux
+          custom-vim
+          custom-tmux
+
+          # Library Utility
+          # calibre
+
+          # Password Management #
+          pass
+          pass-otp
+          passExtensions.pass-update
+          passExtensions.pass-import
+          keychain
+          pwgen
+          pwgen-secure
+          mkpasswd
+          browserpass
+          # Password Management #
+
+
+          ## System Utils
+          pv
+          wget
+          which
+          tcpdump
+          reptyr
+          gnutls
+          pciutils
+          nmap
+          blueman
+          dropbear # initrd ssh
+          sshfs
+
+          # btrbk # Btrfs backups
+
+          # System Clipboard
+          clipmenu
+          pastebinit
+
+          # Terminal + Utils #
+          ## Search + Fuzzy Find ##
+          # ag
+          ripgrep
+          fzf
+          ## Search + Fuzzy Find ##
+
+          pinentry # gpg-agent context menu
+          termite
+          alacritty
+          gawk
+          
+          # Set Localized Environment variables eg persisting nix-shell 
+          direnv
+
+          # Optimized use_nix implementation for direnv
+          # nix-direnv
+
+          # Nix-Shell replacement - daemon service to reload environment variables
+          lorri
+
+
+          brightnessctl # Brightness Control
+
+          # Community driven cheat sheet #
+          cheat
+          cht-sh
+          # Community driven cheat sheet #
+
+          # cat clone with syntax highlighting and git integration
+          bat
+          # Search engine for the terminal
+          surfraw
+
+          glxinfo # graphics card diagnostic tool
+          # Terminal + Utils #
+
+          # Ergonomic #
+          speedread # command line filter that shows input text as a per-word rapid serial visiual, meant to induce a more optimal reading exprience
+          # Ergonomic #
+
+          # File Management #
+          ranger
+          tree
+          file
+          rsync # fast, incremental file transfer utility
+
+          ## File Compression ##
+          # p7zip
+          zip
+          unzip
+          unrar
+          avfs
+          ## File Compression ##
+
+          # File Management #
+
+          ## Media ##
+          vlc
+          mplayer
+          mpv
+          playerctl
+          qrencode # image generation for qrcodes
+          spotify
+          ## Media ##
+
+          # Virtualisation Packages #
+          # nvidia-docker
+          # Virtualisation Packages #
+
+
+          # Rust
+          binutils gcc gnumake openssl pkgconfig
+          rustc cargo clippy rustfmt rls rustup 
+          # rustracer
+
+
+          ## Network Tools
+          wireshark # Packet Analyzer
+
+          ## TO SORT ##
+
+
+          espeak # Text to Speech
+
+          factorio-demo
+
+          # rtv
+          # screenfetch
+          # gnirehtet
+          # iw
+          # lynx
+          # neofetch
+          # exa
+          # ark
+          # abiword
+          # coursera-dl
+          # youtube-dl
+          # system-config-printer
+          # wgetpaste
+          # openvpn
+
+          ## TO SORT ##
+          vorbis-tools
+
+          ## Oculus Quest
+          # sidequest
+
+          ## Playstation ##
+          ## pcsx2
+
+        ]);
+  };
+}
